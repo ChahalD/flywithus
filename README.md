@@ -4,130 +4,464 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SkyBook - Flight Booking</title>
+  <meta name="theme-color" content="#071a35">
+  <meta name="description" content="Discover destinations and search flights for your next journey with SkyVoyage.">
+  <title>SkyVoyage | Discover Your Next Journey</title>
+
   <style>
+    :root {
+      --navy: #071a35;
+      --blue: #1769ff;
+      --text: #14233d;
+      --muted: #69778c;
+      --bg: #f4f7fc;
+    }
+
     * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #eef4ff;
-      color: #172554;
+      font-family: Inter, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
     }
-    header {
-      background: #123b82;
-      color: white;
-      padding: 22px 8%;
-      font-size: 25px;
-      font-weight: bold;
-    }
-    main {
-      max-width: 850px;
-      margin: 55px auto;
-      padding: 20px;
-    }
-    .panel {
+
+    a { text-decoration: none; color: inherit; }
+
+    .nav {
+      min-height: 76px;
+      padding: 0 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
       background: white;
-      padding: 28px;
-      border-radius: 18px;
-      box-shadow: 0 8px 30px #1e3a8a15;
     }
-    .fields {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+
+    .logo {
+      font-size: 23px;
+      font-weight: 850;
+      letter-spacing: -1px;
+      color: var(--navy);
     }
-    label { font-size: 14px; font-weight: bold; }
-    input {
+
+    .logo span { color: var(--blue); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #536177;
+    }
+
+    .nav-cta {
+      background: var(--blue);
+      color: white;
+      padding: 12px 19px;
+      border-radius: 9px;
+    }
+
+    .hero {
+      padding: 76px 7% 110px;
+      color: white;
+      background:
+        linear-gradient(100deg, rgba(5, 20, 43, .95),
+        rgba(8, 39, 79, .72)),
+        linear-gradient(135deg, #123d70, #397dc5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "✈";
+      position: absolute;
+      right: 9%;
+      top: 45px;
+      font-size: clamp(130px, 24vw, 280px);
+      color: rgba(255,255,255,.07);
+      transform: rotate(-12deg);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 850px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      color: #a9c9ff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(39px, 6vw, 68px);
+      line-height: 1.08;
+      letter-spacing: -2px;
+      max-width: 750px;
+      margin: 20px 0;
+    }
+
+    .hero p {
+      color: #d6e3f6;
+      font-size: 17px;
+      line-height: 1.8;
+      max-width: 570px;
+    }
+
+    .search-wrap {
+      max-width: 1100px;
+      margin: -48px auto 0;
+      padding: 0 22px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .search-card {
+      background: white;
+      padding: 30px;
+      border-radius: 19px;
+      box-shadow: 0 18px 60px rgba(14, 35, 71, .12);
+    }
+
+    .search-heading {
+      margin: 0 0 8px;
+      font-size: 23px;
+      letter-spacing: -.5px;
+    }
+
+    .search-subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 24px;
+      line-height: 1.7;
+    }
+
+    /* Travelpayouts flight search widget */
+    #tpwl-tickets {
       display: block;
       width: 100%;
-      padding: 13px;
-      margin-top: 8px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
+      min-height: 180px;
+      overflow: visible;
     }
-    button {
-      margin-top: 22px;
+
+    .section {
+      max-width: 1150px;
+      margin: auto;
+      padding: 78px 24px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .section h2 {
+      font-size: clamp(27px, 4vw, 36px);
+      letter-spacing: -1px;
+      margin: 10px 0;
+    }
+
+    .section-head p, .intro {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .destinations {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .destination {
+      overflow: hidden;
+      background: white;
+      border-radius: 16px;
+      border: 1px solid #e8edf5;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .destination:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px #14233d12;
+    }
+
+    .destination img {
+      display: block;
       width: 100%;
-      padding: 15px;
-      background: #2563eb;
+      height: 210px;
+      object-fit: cover;
+      background: #dce8f6;
+    }
+
+    .destination-info { padding: 20px; }
+
+    .destination-info h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .destination-info p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .feature {
+      padding: 25px;
+      border-radius: 15px;
+      border: 1px solid #e6ecf5;
+      background: white;
+    }
+
+    .feature-icon {
+      font-size: 27px;
+      margin-bottom: 16px;
+    }
+
+    .feature h3 { margin: 0 0 10px; }
+
+    .feature p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .cta {
+      background: var(--navy);
+      border-radius: 20px;
+      padding: 40px;
       color: white;
-      border: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .cta h2 { margin-top: 0; }
+
+    .cta p {
+      color: #c3d1e5;
+      line-height: 1.7;
+    }
+
+    .button {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      padding: 14px 22px;
       border-radius: 9px;
-      font-size: 16px;
-      cursor: pointer;
+      font-weight: 700;
+      white-space: nowrap;
     }
-    #results { margin-top: 22px; }
-    .flight {
-      padding: 16px;
-      margin-top: 12px;
-      border: 1px solid #dbeafe;
-      border-radius: 10px;
+
+    footer {
+      background: #041126;
+      color: #d0d9e8;
+      padding: 35px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 13px;
     }
-    @media(max-width: 520px) {
-      .fields { grid-template-columns: 1fr; }
-      main { margin-top: 25px; }
+
+    footer p { line-height: 1.7; }
+
+    footer a { color: white; }
+
+    @media (max-width: 720px) {
+      .nav { padding: 18px 5%; }
+      .nav-links { gap: 12px; }
+      .nav-links .optional { display: none; }
+      .nav-cta { padding: 10px 12px; }
+      .hero { padding: 60px 6% 85px; }
+      .hero p { font-size: 15px; }
+      .search-wrap { padding: 0 13px; }
+      .search-card { padding: 21px 16px; }
+      .destinations, .features {
+        grid-template-columns: 1fr;
+      }
+      .destination img { height: 230px; }
+      .section { padding: 55px 18px; }
+      .section-head { display: block; }
+      .cta { padding: 27px 22px; flex-direction: column; align-items: flex-start; }
+      footer { padding: 28px 6%; }
     }
   </style>
 </head>
+
 <body>
-  <header>✈ SkyBook</header>
+  <header class="nav">
+    <a class="logo" href="#" aria-label="SkyVoyage home">
+      Sky<span>Voyage</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a class="optional" href="#destinations">Destinations</a>
+      <a class="optional" href="#why-us">Why us</a>
+      <a class="nav-cta" href="#flights">Search Flights</a>
+    </nav>
+  </header>
+
   <main>
-    <h1>Find your next flight</h1>
-    <p>Search flights for your next adventure.</p>
-    <div class="panel">
-      <form id="searchForm">
-        <div class="fields">
-          <label>From
-            <input id="from" placeholder="e.g. Delhi" required>
-          </label>
-          <label>To
-            <input id="to" placeholder="e.g. Mumbai" required>
-          </label>
-          <label>Departure date
-            <input id="date" type="date" required>
-          </label>
-          <label>Passengers
-            <input id="passengers" type="number"
-              min="1" max="9" value="1" required>
-          </label>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">Your journey begins here</div>
+        <h1>Discover the world.<br>One flight at a time.</h1>
+        <p>
+          Find your next adventure, explore inspiring destinations
+          and plan your journey with our flight search experience.
+        </p>
+      </div>
+    </section>
+
+    <section class="search-wrap" id="flights" aria-label="Flight search">
+      <div class="search-card">
+        <h2 class="search-heading">Where would you like to go?</h2>
+        <p class="search-subtitle">
+          Explore flight options for your next journey.
+        </p>
+
+        <div id="tpwl-tickets"></div>
+      </div>
+    </section>
+
+    <section class="section" id="destinations">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow" style="color:#1769ff">Get inspired</div>
+          <h2>Explore popular destinations</h2>
+          <p>From vibrant cities to unforgettable escapes.</p>
         </div>
-        <button type="submit">Search Flights</button>
-      </form>
-      <div id="results" aria-live="polite"></div>
-    </div>
+      </div>
+
+      <div class="destinations">
+        <article class="destination">
+          <img
+            src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80"
+            alt="New York city skyline"
+            loading="lazy">
+          <div class="destination-info">
+            <h3>New York, USA</h3>
+            <p>Discover iconic sights and the energy of the city.</p>
+          </div>
+        </article>
+
+        <article class="destination">
+          <img
+            src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80"
+            alt="Paris and the Eiffel Tower"
+            loading="lazy">
+          <div class="destination-info">
+            <h3>Paris, France</h3>
+            <p>Enjoy beautiful streets, art and unforgettable views.</p>
+          </div>
+        </article>
+
+        <article class="destination">
+          <img
+            src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80"
+            alt="Dubai skyline"
+            loading="lazy">
+          <div class="destination-info">
+            <h3>Dubai, UAE</h3>
+            <p>Experience modern architecture and desert adventures.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="why-us">
+      <div class="eyebrow" style="color:#1769ff">Travel with confidence</div>
+      <h2>Make planning your trip easier</h2>
+      <p class="intro">
+        Everything starts with finding a journey that fits your plans.
+      </p>
+
+      <div class="features">
+        <article class="feature">
+          <div class="feature-icon">✈️</div>
+          <h3>Flight discovery</h3>
+          <p>Use the flight search widget to explore available options.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature-icon">🌍</div>
+          <h3>Explore the world</h3>
+          <p>Find inspiration for your next city break or holiday.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature-icon">📱</div>
+          <h3>Travel anywhere</h3>
+          <p>Browse our website on mobile, tablet or desktop.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="cta">
+        <div>
+          <h2>Your next adventure awaits.</h2>
+          <p>Start exploring flights and plan your next journey.</p>
+        </div>
+        <a class="button" href="#flights">Find Flights →</a>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div>
+      <a class="logo" href="#" style="color:white">
+        Sky<span>Voyage</span>
+      </a>
+      <p>Discover more. Travel further.</p>
+    </div>
+    <div>
+      <p>Flight search is provided through an external widget.</p>
+      <p>Flight prices and booking terms are determined by the relevant provider.</p>
+      <p>© <span id="year"></span> SkyVoyage</p>
+    </div>
+  </footer>
+
   <script>
-    const date = document.getElementById("date");
-    date.min = new Date().toLocaleDateString("en-CA");
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
 
-    document.getElementById("searchForm").addEventListener("submit", e => {
-      e.preventDefault();
-      const from = document.getElementById("from").value.trim();
-      const to = document.getElementById("to").value.trim();
-      const travelDate = date.value;
-      const passengers = document.getElementById("passengers").value;
-
-      if (from.toLowerCase() === to.toLowerCase()) {
-        alert("From aur To alag cities honi chahiye.");
-        return;
-      }
-
-      document.getElementById("results").innerHTML = `
-        <h2>Demo Search Results</h2>
-        <div class="flight">
-          <strong>${escapeText(from)} → ${escapeText(to)}</strong>
-          <p>Date: ${travelDate}</p>
-          <p>Passengers: ${passengers}</p>
-          <p>Sample flight — live flight data connected nahi hai.</p>
-        </div>`;
-    });
-
-    function escapeText(value) {
-      return value.replace(/[&<>"']/g, char => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;",
-        '"': "&quot;", "'": "&#39;"
-      })[char]);
-    }
+  <!-- Travelpayouts White Label Web widget -->
+  <script nowprocket data-noptimize="1" data-cfasync="false"
+    data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1">
+    (function () {
+      var script = document.createElement("script");
+      script.async = 1;
+      script.type = "module";
+      script.src =
+        "https://tpwgts.com/wl_web/main.js?wl_id=20293";
+      document.head.appendChild(script);
+    })();
   </script>
 </body>
 </html>
