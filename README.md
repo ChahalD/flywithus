@@ -1,467 +1,364 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#071a35">
-  <meta name="description" content="Discover destinations and search flights for your next journey with SkyVoyage.">
-  <title>SkyVoyage | Discover Your Next Journey</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seaborne MCS - Air Travel & Flight Bookings</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-  <style>
-    :root {
-      --navy: #071a35;
-      --blue: #1769ff;
-      --text: #14233d;
-      --muted: #69778c;
-      --bg: #f4f7fc;
-    }
+        body {
+            background-color: #f9fbfd;
+            color: #333;
+            line-height: 1.6;
+        }
 
-    * { box-sizing: border-box; }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    html { scroll-behavior: smooth; }
+        /* Navbar */
+        .navbar {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
 
-    body {
-      margin: 0;
-      font-family: Inter, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", Arial, sans-serif;
-      color: var(--text);
-      background: var(--bg);
-    }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    a { text-decoration: none; color: inherit; }
+        .logo h2 {
+            color: #0b2545;
+            font-weight: 700;
+        }
 
-    .nav {
-      min-height: 76px;
-      padding: 0 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      background: white;
-    }
+        .logo span {
+            color: #134074;
+            font-weight: 400;
+            font-size: 0.9rem;
+            display: block;
+        }
 
-    .logo {
-      font-size: 23px;
-      font-weight: 850;
-      letter-spacing: -1px;
-      color: var(--navy);
-    }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
 
-    .logo span { color: var(--blue); }
+        .nav-links a {
+            text-decoration: none;
+            color: #495057;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #536177;
-    }
+        .nav-links a:hover {
+            color: #134074;
+        }
 
-    .nav-cta {
-      background: var(--blue);
-      color: white;
-      padding: 12px 19px;
-      border-radius: 9px;
-    }
+        .btn-nav {
+            background-color: #134074;
+            color: #fff !important;
+            padding: 8px 20px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
 
-    .hero {
-      padding: 76px 7% 110px;
-      color: white;
-      background:
-        linear-gradient(100deg, rgba(5, 20, 43, .95),
-        rgba(8, 39, 79, .72)),
-        linear-gradient(135deg, #123d70, #397dc5);
-      position: relative;
-      overflow: hidden;
-    }
+        .btn-nav:hover {
+            background-color: #0b2545;
+        }
 
-    .hero::after {
-      content: "✈";
-      position: absolute;
-      right: 9%;
-      top: 45px;
-      font-size: clamp(130px, 24vw, 280px);
-      color: rgba(255,255,255,.07);
-      transform: rotate(-12deg);
-      pointer-events: none;
-    }
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background: linear-gradient(rgba(11, 37, 69, 0.75), rgba(19, 64, 116, 0.75)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+        }
 
-    .hero-content {
-      max-width: 850px;
-      position: relative;
-      z-index: 1;
-    }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    .eyebrow {
-      color: #a9c9ff;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
 
-    h1 {
-      font-size: clamp(39px, 6vw, 68px);
-      line-height: 1.08;
-      letter-spacing: -2px;
-      max-width: 750px;
-      margin: 20px 0;
-    }
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #e2e8f0;
+        }
 
-    .hero p {
-      color: #d6e3f6;
-      font-size: 17px;
-      line-height: 1.8;
-      max-width: 570px;
-    }
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
 
-    .search-wrap {
-      max-width: 1100px;
-      margin: -48px auto 0;
-      padding: 0 22px;
-      position: relative;
-      z-index: 3;
-    }
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
 
-    .search-card {
-      background: white;
-      padding: 30px;
-      border-radius: 19px;
-      box-shadow: 0 18px 60px rgba(14, 35, 71, .12);
-    }
+        .btn-primary {
+            background-color: #ee6c4d;
+            color: #fff;
+        }
 
-    .search-heading {
-      margin: 0 0 8px;
-      font-size: 23px;
-      letter-spacing: -.5px;
-    }
+        .btn-primary:hover {
+            background-color: #d95332;
+            transform: translateY(-2px);
+        }
 
-    .search-subtitle {
-      color: var(--muted);
-      font-size: 14px;
-      margin: 0 0 24px;
-      line-height: 1.7;
-    }
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
 
-    /* Travelpayouts flight search widget */
-    #tpwl-tickets {
-      display: block;
-      width: 100%;
-      min-height: 180px;
-      overflow: visible;
-    }
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
 
-    .section {
-      max-width: 1150px;
-      margin: auto;
-      padding: 78px 24px;
-    }
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #ffffff;
+        }
 
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 20px;
-      margin-bottom: 28px;
-    }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
 
-    .section h2 {
-      font-size: clamp(27px, 4vw, 36px);
-      letter-spacing: -1px;
-      margin: 10px 0;
-    }
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: #0b2545;
+            margin-bottom: 10px;
+        }
 
-    .section-head p, .intro {
-      color: var(--muted);
-      line-height: 1.7;
-    }
+        .section-title p {
+            color: #6c757d;
+        }
 
-    .destinations {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
-    }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
 
-    .destination {
-      overflow: hidden;
-      background: white;
-      border-radius: 16px;
-      border: 1px solid #e8edf5;
-      transition: transform .2s, box-shadow .2s;
-    }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 40px 30px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
 
-    .destination:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 35px #14233d12;
-    }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
 
-    .destination img {
-      display: block;
-      width: 100%;
-      height: 210px;
-      object-fit: cover;
-      background: #dce8f6;
-    }
+        .feature-card .icon {
+            font-size: 2.5rem;
+            color: #134074;
+            margin-bottom: 20px;
+        }
 
-    .destination-info { padding: 20px; }
+        .feature-card h3 {
+            font-size: 1.25rem;
+            color: #0b2545;
+            margin-bottom: 15px;
+        }
 
-    .destination-info h3 {
-      margin: 0 0 8px;
-      font-size: 20px;
-    }
+        .feature-card p {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
 
-    .destination-info p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
-    }
+        /* CTA Banner */
+        .cta-banner {
+            background: #0b2545;
+            color: #fff;
+            padding: 60px 0;
+            text-align: center;
+        }
 
-    .features {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
+        .cta-content h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
 
-    .feature {
-      padding: 25px;
-      border-radius: 15px;
-      border: 1px solid #e6ecf5;
-      background: white;
-    }
+        .cta-content p {
+            color: #cbd5e1;
+            margin-bottom: 25px;
+        }
 
-    .feature-icon {
-      font-size: 27px;
-      margin-bottom: 16px;
-    }
+        /* Footer */
+        .footer {
+            background: #05162a;
+            color: #94a3b8;
+            padding: 20px 0;
+            font-size: 0.9rem;
+        }
 
-    .feature h3 { margin: 0 0 10px; }
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .feature p {
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 14px;
-      margin: 0;
-    }
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
 
-    .cta {
-      background: var(--navy);
-      border-radius: 20px;
-      padding: 40px;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 25px;
-    }
+        .social-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
 
-    .cta h2 { margin-top: 0; }
+        .social-links a:hover {
+            color: #fff;
+        }
 
-    .cta p {
-      color: #c3d1e5;
-      line-height: 1.7;
-    }
-
-    .button {
-      display: inline-block;
-      background: var(--blue);
-      color: white;
-      padding: 14px 22px;
-      border-radius: 9px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    footer {
-      background: #041126;
-      color: #d0d9e8;
-      padding: 35px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      font-size: 13px;
-    }
-
-    footer p { line-height: 1.7; }
-
-    footer a { color: white; }
-
-    @media (max-width: 720px) {
-      .nav { padding: 18px 5%; }
-      .nav-links { gap: 12px; }
-      .nav-links .optional { display: none; }
-      .nav-cta { padding: 10px 12px; }
-      .hero { padding: 60px 6% 85px; }
-      .hero p { font-size: 15px; }
-      .search-wrap { padding: 0 13px; }
-      .search-card { padding: 21px 16px; }
-      .destinations, .features {
-        grid-template-columns: 1fr;
-      }
-      .destination img { height: 230px; }
-      .section { padding: 55px 18px; }
-      .section-head { display: block; }
-      .cta { padding: 27px 22px; flex-direction: column; align-items: flex-start; }
-      footer { padding: 28px 6%; }
-    }
-  </style>
+        /* Responsive Media Query */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .footer-container {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <header class="nav">
-    <a class="logo" href="#" aria-label="SkyVoyage home">
-      Sky<span>Voyage</span>
-    </a>
 
-    <nav class="nav-links" aria-label="Main navigation">
-      <a class="optional" href="#destinations">Destinations</a>
-      <a class="optional" href="#why-us">Why us</a>
-      <a class="nav-cta" href="#flights">Search Flights</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <div class="eyebrow">Your journey begins here</div>
-        <h1>Discover the world.<br>One flight at a time.</h1>
-        <p>
-          Find your next adventure, explore inspiring destinations
-          and plan your journey with our flight search experience.
-        </p>
-      </div>
-    </section>
-
-    <section class="search-wrap" id="flights" aria-label="Flight search">
-      <div class="search-card">
-        <h2 class="search-heading">Where would you like to go?</h2>
-        <p class="search-subtitle">
-          Explore flight options for your next journey.
-        </p>
-
-        <div id="tpwl-tickets"></div>
-      </div>
-    </section>
-
-    <section class="section" id="destinations">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow" style="color:#1769ff">Get inspired</div>
-          <h2>Explore popular destinations</h2>
-          <p>From vibrant cities to unforgettable escapes.</p>
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <h2>Seaborne MCS <span>Air Travel</span></h2>
+            </div>
+            <nav class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#features">Why Us</a>
+                <a href="#services">Services</a>
+                <a href="https://www.seabornemcs.in/air-travel.html" class="btn-nav" target="_blank">Book Now</a>
+            </nav>
         </div>
-      </div>
+    </header>
 
-      <div class="destinations">
-        <article class="destination">
-          <img
-            src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80"
-            alt="New York city skyline"
-            loading="lazy">
-          <div class="destination-info">
-            <h3>New York, USA</h3>
-            <p>Discover iconic sights and the energy of the city.</p>
-          </div>
-        </article>
-
-        <article class="destination">
-          <img
-            src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80"
-            alt="Paris and the Eiffel Tower"
-            loading="lazy">
-          <div class="destination-info">
-            <h3>Paris, France</h3>
-            <p>Enjoy beautiful streets, art and unforgettable views.</p>
-          </div>
-        </article>
-
-        <article class="destination">
-          <img
-            src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80"
-            alt="Dubai skyline"
-            loading="lazy">
-          <div class="destination-info">
-            <h3>Dubai, UAE</h3>
-            <p>Experience modern architecture and desert adventures.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="why-us">
-      <div class="eyebrow" style="color:#1769ff">Travel with confidence</div>
-      <h2>Make planning your trip easier</h2>
-      <p class="intro">
-        Everything starts with finding a journey that fits your plans.
-      </p>
-
-      <div class="features">
-        <article class="feature">
-          <div class="feature-icon">✈️</div>
-          <h3>Flight discovery</h3>
-          <p>Use the flight search widget to explore available options.</p>
-        </article>
-
-        <article class="feature">
-          <div class="feature-icon">🌍</div>
-          <h3>Explore the world</h3>
-          <p>Find inspiration for your next city break or holiday.</p>
-        </article>
-
-        <article class="feature">
-          <div class="feature-icon">📱</div>
-          <h3>Travel anywhere</h3>
-          <p>Browse our website on mobile, tablet or desktop.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="cta">
-        <div>
-          <h2>Your next adventure awaits.</h2>
-          <p>Start exploring flights and plan your next journey.</p>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1>Your Journey Begins With The Best Flights</h1>
+            <p>Experience seamless flight bookings, affordable global airfares, and trusted travel support tailored for your professional and personal trips.</p>
+            <div class="hero-buttons">
+                <!-- Direct link to your existing flight booking page -->
+                <a href="https://www.seabornemcs.in/air-travel.html" target="_blank" class="btn btn-primary">
+                    <i class="fa-solid fa-plane-departure"></i> Find Flight
+                </a>
+                <a href="#features" class="btn btn-secondary">Learn More</a>
+            </div>
         </div>
-        <a class="button" href="#flights">Find Flights →</a>
-      </div>
     </section>
-  </main>
 
-  <footer>
-    <div>
-      <a class="logo" href="#" style="color:white">
-        Sky<span>Voyage</span>
-      </a>
-      <p>Discover more. Travel further.</p>
-    </div>
-    <div>
-      <p>Flight search is provided through an external widget.</p>
-      <p>Flight prices and booking terms are determined by the relevant provider.</p>
-      <p>© <span id="year"></span> SkyVoyage</p>
-    </div>
-  </footer>
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Book With Us</h2>
+                <p>We make air travel comfortable, reliable, and cost-effective.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon"><i class="fa-solid fa-tags"></i></div>
+                    <h3>Best Price Guarantee</h3>
+                    <p>Get unbeatable airfares and exclusive discounts on international and domestic flights.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon"><i class="fa-solid fa-headset"></i></div>
+                    <h3>24/7 Travel Support</h3>
+                    <p>Our dedicated team is always here to assist you with rescheduling, cancellations, and queries.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Secure & Fast Booking</h3>
+                    <p>Quick processing with secure pathways to ensure your travel plans are stress-free.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
-  </script>
+    <!-- Call to Action Banner -->
+    <section class="cta-banner">
+        <div class="container cta-content">
+            <h2>Ready to Explore the Skies?</h2>
+            <p>Search schedules, compare airlines, and secure your tickets in just a few clicks.</p>
+            <a href="https://www.seabornemcs.in/air-travel.html" target="_blank" class="btn btn-primary">
+                <i class="fa-solid fa-magnifying-glass"></i> Find Flight Now
+            </a>
+        </div>
+    </section>
 
-  <!-- Travelpayouts White Label Web widget -->
-  <script nowprocket data-noptimize="1" data-cfasync="false"
-    data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1">
-    (function () {
-      var script = document.createElement("script");
-      script.async = 1;
-      script.type = "module";
-      script.src =
-        "https://tpwgts.com/wl_web/main.js?wl_id=20293";
-      document.head.appendChild(script);
-    })();
-  </script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <p>&copy; 2026 Seaborne MCS Air Travel. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
